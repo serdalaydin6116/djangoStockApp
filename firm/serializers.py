@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Firm, Category, Brand,Product
+from .models import Firm, Category, Brand, Product, Stock
 
 class FirmSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,13 +17,19 @@ class CategorySerializer(serializers.ModelSerializer):
         fields= '__all__'
 
 
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Brand
+        fields= '__all__'
 
 
 
 
 
 
-# class ReservationSerializer(serializers.ModelSerializer):
+
+
+# class ProductSerializer(serializers.ModelSerializer):
 
 #     passenger=PassengerSerializer(many=True, required=False)
 #     flight=serializers.StringRelatedField()  #default =readonly
