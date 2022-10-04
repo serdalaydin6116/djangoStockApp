@@ -50,3 +50,24 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=(
+
+        'username',
+        'email',
+        )
+
+class CustomTokenSerializer(TokenSerializer):
+    user=UserSerializer(read_only=True)
+
+    class Meta(TokenSerializer.Meta):
+        fields=(
+            'key',
+            'user'
+
+
+        )
