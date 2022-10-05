@@ -1,4 +1,4 @@
-from .models import Path, Student
+from .models import Firm, Category, Brand, Product,Stock
 from faker import Faker
 
 def run():
@@ -11,16 +11,16 @@ def run():
     '''
 
     fake = Faker()
-    paths = (
-        "FullStack",
-        "DataScience",
-        "AwsDevops",
-        "CyberSec",
+    firms = (
+        "Unilever",
+        "Nestle",
+        "Ulker",
+        "Mitsubishi",
     )
 
-    for path in paths:
-        new_path = Path.objects.create(path_name = path)
+    for firm in firms:
+        new_firm = Firm.objects.create(f_name = firm)
         for _ in range(50):
-            Student.objects.create(path = new_path, first_name = fake.first_name(), last_name = fake.last_name(), number = fake.pyint())
+            Stock.objects.create(user=fake.user, firm = new_firm, product = fake.product(), quantity = fake.quantity(), price = fake.price())
     
     print('OK')
