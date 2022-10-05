@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Firm, Category, Brand, Product, Stock
+from users.models import Auth_User
 
 class FirmSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,34 +30,35 @@ class BrandSerializer(serializers.ModelSerializer):
 
 
 
-# class ProductSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
 
-#     passenger=PassengerSerializer(many=True, required=False)
-#     flight=serializers.StringRelatedField()  #default =readonly
-#     flight_id=serializers.IntegerField(write_only=True) #create yaparken bunu getir
-#     user=serializers.StringRelatedField()  #default =readonly
-#     user_id=serializers.IntegerField(write_only=True, required=False) #create yaparken bunu getir
-#     class Meta:
-#         model=Reservation
-#         fields= (
-#         'id',
-#         "flight",
-#         "flight_id",
-#         "user",
-#         "user_id",
-#         "passenger",
-#         )
+    product=FirmSerializer(many=True, required=False)
+    category=serializers.StringRelatedField()  #default =readonly
+    category_id=serializers.IntegerField(write_only=True) #create yaparken bunu getir
+    brand=serializers.StringRelatedField()  #default =readonly
+    brand_id=serializers.IntegerField(write_only=True, required=False) #create yaparken bunu getir
+    class Meta:
+        model=Product
+        fields= (
+        'id',
+        "p_name",
+        "p_name_id",
+        "category",
+        "category_id",
+        "stock",
+        
+        )
 
-#     def create(self, validated_data):
-#         passenger_data=validated_data.pop('passenger')
-#         validated_data['user_id']=self.context['request'].user.id #guncel useri yakalıyoruz
-#         reservation=Reservation.objects.create(**validated_data)
+    def create(self, validated_data):
+        product_data=validated_data.pop('product')
+        validated_data['user_id']=self.context['request'].user.id #guncel useri yakalıyoruz
+        firm=Firm.objects.create(**validated_data)
 
-#         for passenger in passenger_data:
-#             pas=Passenger.objects.create(**passenger)
-#             reservation.passenger.add(pas)
-#         reservation.save()
-#         return reservation
+        for product in product_data:
+            pro=Product.objects.create(**product)
+            firm.product.add(pro)
+        firm.save()
+        return firm
 
 
 # class StaffFlightSerializer(serializers.ModelSerializer):
