@@ -7,7 +7,7 @@ from users.models import Auth_User
 
 # Create your models here.
 class Firm(models.Model):
-    name=models.CharField(max_length=20)
+    f_name=models.CharField(max_length=20)
     phone=models.CharField(max_length=12)
     address=models.TextField(blank=True)
 
@@ -19,7 +19,7 @@ class Firm(models.Model):
 
 
 class Category(models.Model):
-    name=models.CharField(max_length=20)
+    c_name=models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
@@ -29,7 +29,7 @@ class Category(models.Model):
 
 
 class Brand(models.Model):
-    name=models.CharField(max_length=20)
+    b_name=models.CharField(max_length=20)
     
 
     def __str__(self):
@@ -38,7 +38,7 @@ class Brand(models.Model):
 
 class Product(models.Model):
     
-    name=models.CharField(max_length=20)
+    p_name=models.CharField(max_length=20)
     category=models.OneToOneField(Category, on_delete=models.CASCADE, blank=True, null=True) 
     brand=models.OneToOneField(Brand, on_delete=models.CASCADE, blank=True, null=True) 
     stock=models.SmallIntegerField()
