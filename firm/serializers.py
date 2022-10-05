@@ -26,10 +26,6 @@ class BrandSerializer(serializers.ModelSerializer):
 
 
 
-
-
-
-
 class ProductSerializer(serializers.ModelSerializer):
 
     product=FirmSerializer(many=True, required=False)
